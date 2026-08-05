@@ -75,15 +75,8 @@ def register_student(students):
     students[student_id] = {"name": name, "enrolled_courses": {}}
     print("Registered", student_id, ":", name)
     return students 
-    print(f"Course '{course_id}' added successfully.")
 
-     
-
-
-# Students
-
-
-
+ 
 # Enrolments
 
 def enrol_student():

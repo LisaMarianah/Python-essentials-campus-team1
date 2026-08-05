@@ -60,6 +60,21 @@ def add_course():
 
     next_course_id += 1
 
+# Registers a new student with an empty enrolments dictionary, and loops until valid name is given
+
+def register_student(students):
+    global next_student_number
+    while True:
+        name = input("Enter student name: ").strip()
+        if name == "":
+            print("Name cannot be blank. Please try again.")
+        else:
+            break
+    student_id = "S" + str(next_student_number)
+    next_student_number += 1
+    students[student_id] = {"name": name, "enrolled_courses": {}}
+    print("Registered", student_id, ":", name)
+    return students 
     print(f"Course '{course_id}' added successfully.")
 
      
@@ -117,6 +132,7 @@ def academy_report():
 
 # Main Program
 
+next_student_number = 1
 def main():
     while True:
         show_menu()

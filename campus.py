@@ -67,32 +67,7 @@ def add_course():
 
 # Students
 
-def register_student():
-    global next_student_id
-    
-    print("\n== Register Student ==")
-    student_id = "S" + str(next_student_id)
 
-    first_name = input("Enter first name: ")
-    last_name = input("Enter last name: ")
-    
-    if first_name == "" or last_name == "":
-        print("Student name cannot be empty.")
-        return
-
-    if last_name == "":
-        print("Student last name cannot be empty.")
-        return
-    
-    students[student_id] = {
-        "first_name": first_name,
-        "last_name": last_name,
-        "enrolled_courses": {},
-    }
-
-    print(f"Student '{student_id}' registered successfully.")
-    
-    next_student_id += 1
 
 # Enrolments
 

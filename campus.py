@@ -7,26 +7,62 @@
 # - Kuhle Phungula
 
 # Dictionaries
+next_course_id = 1
+next_student_id = 1
 courses = {}
 students = {}
+
 
 # Menu
 
 def show_menu():
-    pass
+<<<<<< HEAD
+pass
+=======
+print("\n== Melsoft Campus Manager ==")
+print("1. Add Course")
+print("2. Register Student")
+print("3. Enrol Student in Course")
+print("4. Record a mark")
+print("5. Student Transcript")
+print("6. Course Report")
+print("7. Search")
+print("8. Withdraw Student from Course")
+print ("9. Academy report")
+print ("10. Exit")
+>>>>>>> 410d8bea847bd6a3f9306d61c43ec31178b5f90b
 
 
 # Validation
 
 def read_valid_number(prompt, low, high):
-    pass
+ while True:
+        try:
+            number = int(input(prompt))
+            if low <= number <= high:
+                return number
+            else:
+                print(f"Please enter a number between {low} and {high}.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")   
 
 
 # Courses
 
 def add_course():
-    pass
+    global next_course_id
+    
+    print("\n== Add Course ==")
+    course_id = "C" + str(next_course_id)
+    course_name = input("Enter course name: ")
+    max_students = read_valid_number("Enter maximum number of students: ", 1, 1000)
+    courses[course_id] = {
+        "name": course_name,
+        "capacity": max_students,
+        "roster": [],
+    }
 
+    next_course_id += 1
 
 # Registers a new student with an empty enrolments dictionary, and loops until valid name is given
 
@@ -43,6 +79,13 @@ def register_student(students):
     students[student_id] = {"name": name, "enrolled_courses": {}}
     print("Registered", student_id, ":", name)
     return students 
+    print(f"Course '{course_id}' added successfully.")
+
+     
+
+
+# Students
+
 
 
 # Enrols a student to a course, with multiple checks before confirming enrolment
@@ -118,7 +161,32 @@ def academy_report():
 
 next_student_number = 1
 def main():
-    pass
+    while True:
+        show_menu()
+        choice = read_valid_number("Enter your choice (1-10): ", 1, 10)
+
+        if choice == 1:
+            add_course()
+        elif choice == 2:
+            register_student()
+        elif choice == 3:
+            enrol_student()
+        elif choice == 4:
+            record_mark()
+        elif choice == 5:
+            student_transcript()
+        elif choice == 6:
+            course_report()
+        elif choice == 7:
+            search_everything()
+        elif choice == 8:
+            withdraw_student()
+        elif choice == 9:
+            academy_report()
+        elif choice == 10:
+            print("Exiting the program. Goodbye!")
+            break
+
 
 if __name__ == "__main__":
     main()

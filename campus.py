@@ -13,7 +13,7 @@ students = {}
 # Menu
 
 def show_menu():
-    
+    pass
 
 
 # Validation
@@ -45,10 +45,33 @@ def register_student(students):
     return students 
 
 
-# Enrolments
+# Enrols a student to a course, with multiple checks before confirming enrolment
 
-def enrol_student():
-    pass
+def enrol_student(students, courses):
+    student_id = input("Enter student ID: ").strip().upper()
+    if student_id not in students:
+        print("Student not found.")
+        return students, courses
+
+    course_id = input("Enter course ID: ").strip().upper()
+    if course_id not in courses:
+        print("Course not found.")
+        return students, courses
+
+    if len(courses[course_id]["roster"]) >= 2:
+        print(course_id, "is full (2 of 2 enrolled).")
+        return students, courses
+
+    if student_id in courses[course_id]["roster"]:
+        print(student_id, "is already enrolled in", course_id, ".")
+        return students, courses
+
+    courses[course_id]["roster"].append(student_id)
+    students[student_id]["enrolments"][course_id] = []
+    print(student_id, "enrolled in", course_id, ":", courses[course_id]["name"], ".")
+    return students, courses 
+
+
 
 
 def withdraw_student():

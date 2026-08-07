@@ -16,21 +16,19 @@ students = {}
 # Menu
 
 def show_menu():
-<<<<<< HEAD
-pass
-=======
-print("\n== Melsoft Campus Manager ==")
-print("1. Add Course")
-print("2. Register Student")
-print("3. Enrol Student in Course")
-print("4. Record a mark")
-print("5. Student Transcript")
-print("6. Course Report")
-print("7. Search")
-print("8. Withdraw Student from Course")
-print ("9. Academy report")
-print ("10. Exit")
->>>>>>> 410d8bea847bd6a3f9306d61c43ec31178b5f90b
+
+    print("\n== Melsoft Campus Manager ==")
+    print("1. Add Course")
+    print("2. Register Student")
+    print("3. Enrol Student in Course")
+    print("4. Record a mark")
+    print("5. Student Transcript")
+    print("6. Course Report")
+    print("7. Search")
+    print("8. Withdraw Student from Course")
+    print ("9. Academy report")
+    print ("10. Exit")
+
 
 
 # Validation
@@ -123,8 +121,42 @@ def withdraw_student():
 
 # Marks
 
-def record_mark():
-    pass
+def record_mark(students, courses):
+    student_id = input("Enter student ID: ").strip().upper()
+    if student_id not in students:
+        print("Student not found.")
+        return students, courses
+
+    course_id = input("Enter course ID: ").strip().upper()
+    if course_id not in courses:
+        print("Course not found.")
+        return students, courses
+
+    if student_id not in courses[course_id]["roster"]:
+        print(student_id, "is not enrolled in", course_id, ".")
+        return students, courses
+
+    mark = input("Enter a mark: ").strip()
+    if mark == "":
+        print("Mark cannot be blank.")
+        return students, courses
+    try:
+        mark = float(mark)
+        if mark < 0 or mark > 100:
+            print("Invalid mark. Mark must be between 0 and 100.")
+            return None
+        else:
+            return mark
+    except ValueError:
+        print("Invalid mark.")
+        return None
+
+    students[student_id]["marks"].append(mark)
+    print("Mark:", mark, "recorded for", student_id, "in", course_id, ".")
+    return students, courses 
+
+
+    
 
 
 def course_average_for(student_id, course_id):
@@ -172,7 +204,7 @@ def main():
         elif choice == 3:
             enrol_student()
         elif choice == 4:
-            record_mark()
+            record_mark(students, courses)
         elif choice == 5:
             student_transcript()
         elif choice == 6:
@@ -188,5 +220,4 @@ def main():
             break
 
 
-if __name__ == "__main__":
-    main()
+

@@ -160,7 +160,12 @@ def record_mark(students, courses):
 
 
 def course_average_for(student_id, course_id):
-    pass
+    marks = students[student_id]["enrolments"][course_id]
+    if len(marks) == 0:
+        return None
+
+    avg = sum(marks) / len(marks)
+    return avg
 
 
 # Reports

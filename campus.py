@@ -151,7 +151,7 @@ def record_mark(students, courses):
         print("Invalid mark.")
         return None
 
-    students[student_id]["marks"].append(mark)
+    students[student_id]["enrolments"].append(mark)
     print("Mark:", mark, "recorded for", student_id, "in", course_id, ".")
     return students, courses 
 

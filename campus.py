@@ -197,7 +197,7 @@ def academy_totals(students):
     return (total_students, total_enrolments, total_marks)
 
 # Finds course and its averages
-def best_course(courses):
+def best_course(courses, students):
     if not courses:
         return (None, None)
 
@@ -230,7 +230,51 @@ def best_course(courses):
 
 
 def academy_report():
-    pass
+    print("\n === Academy Report ===")
+
+    total_students, total_enrolments, total_marks = academy_totals(students)
+    total_courses = len(courses)
+
+    print("Total Students: ", total_students)
+    print("Total Courses: ", total_courses)
+    print("Total Enrolments: ", total_enrolments)
+    print("Marks Recorded: ", total_marks)
+
+    marks_sum = 0
+    distinction = []
+    at_risk = []
+
+    for student_id in students:
+        students_marks = []
+        for marks in students[student_id]["enrolments"].values():
+            students_marks.extend(marks)
+
+        marks_sum += sum(students_marks)
+
+        if len(students_marks) == 0:
+            continue
+
+        overall_average = sum(students_marks) / len(students_marks)
+        if overall_average >= 80:
+            distinction.append(student_id, ":", students[student_id]["name"])
+        elif overall_average < 50:
+            at_risk.append(student_id, ":", students[student_id]["name"])
+
+    if total_marks > 0:
+        academy_average = marks_sum / total_marks
+        print("Academy-wide Average: ", academy_average)
+    else:
+        print("Academy-wide Average: n/a")
+
+    best_id, best_average = best_course(courses, students)
+    if best_id is None:
+        print("Best-performing Course: n/a (no marks recorded yet)")
+    else:
+        print("Best-performing Course: ", best_id, "-", courses[best_id]["name"], "-", best_average)
+
+    print("Distinction list (avg 80+): ", distinction)
+    print("At risk list (avg below 50): ", at_risk)
+
 
 
 # Main Program

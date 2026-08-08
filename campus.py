@@ -182,10 +182,9 @@ def course_report():
 def search_everything():
     pass
 
-
-def academy_totals():
+# Finds the total students, enrolments, and marks
+def academy_totals(students):
     total_students = len(students)
-    total_courses = len(courses)
 
     total_enrolments = 0
     total_marks = 0
@@ -195,12 +194,12 @@ def academy_totals():
             total_enrolments += 1
             total_marks += len(marks)
 
-    return (total_students, total_courses, total_enrolments, total_marks)
+    return (total_students, total_enrolments, total_marks)
 
 # Finds course and its averages
-def best_course():
+def best_course(courses):
     if not courses:
-        return None
+        return (None, None)
 
     best_id = None
     best_average = None
@@ -224,7 +223,10 @@ def best_course():
             best_average = course_average
             best_id = course_id
 
-    return best_id
+    if best_id is None:
+        return (None, None)
+
+    return (best_id, best_average)
 
 
 def academy_report():
@@ -233,7 +235,7 @@ def academy_report():
 
 # Main Program
 
-next_student_number = 1
+
 def main():
     while True:
         show_menu()

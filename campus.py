@@ -184,7 +184,18 @@ def search_everything():
 
 
 def academy_totals():
-    pass
+    total_students = len(students)
+    total_courses = len(courses)
+
+    total_enrolments = 0
+    total_marks = 0
+
+    for student_id in students:
+        for marks in students[student_id]["enrolments"].values():
+            total_enrolments += 1
+            total_marks += len(marks)
+
+    return (total_students, total_courses, total_enrolments, total_marks)
 
 
 def best_course():

@@ -98,9 +98,10 @@ def enrol_student(students, courses):
     if course_id not in courses:
         print("Course not found.")
         return students, courses
-
-    if len(courses[course_id]["roster"]) >= 2:
-        print(course_id, "is full (2 of 2 enrolled).")
+    
+    capacity = courses[course_id]["capacity"]
+    if len(courses[course_id]["roster"]) >= capacity:
+        print(course_id, "is full (" + str(capacity) + "of" + str(capacity) + "enrolled).")
         return students, courses
 
     if student_id in courses[course_id]["roster"]:
@@ -119,7 +120,7 @@ def withdraw_student():
     pass
 
 
-# Marks
+# Records a mark for a student in a specific course, and mark validated in a try-except
 
 def record_mark(students, courses):
     student_id = input("Enter student ID: ").strip().upper()
@@ -140,18 +141,18 @@ def record_mark(students, courses):
     if mark == "":
         print("Mark cannot be blank.")
         return students, courses
+    
     try:
         mark = float(mark)
-        if mark < 0 or mark > 100:
-            print("Invalid mark. Mark must be between 0 and 100.")
-            return None
-        else:
-            return mark
     except ValueError:
         print("Invalid mark.")
-        return None
+        return students, courses
 
-    students[student_id]["enrolments"].append(mark)
+    if mark < 0 or mark > 100:
+        print("Invalid mark. Mark must be between 0 and 100.")
+        return students, courses 
+
+    students[student_id]["enrolments"][course_id].append(mark)
     print("Mark:", mark, "recorded for", student_id, "in", course_id, ".")
     return students, courses 
 

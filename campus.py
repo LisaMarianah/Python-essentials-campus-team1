@@ -197,9 +197,34 @@ def academy_totals():
 
     return (total_students, total_courses, total_enrolments, total_marks)
 
-
+# Finds course and its averages
 def best_course():
-    pass
+    if not courses:
+        return None
+
+    best_id = None
+    best_average = None
+
+    for course_id in courses:
+        total_average = 0
+        students_with_marks = 0
+
+        for student_id in courses[course_id]["roster"]:
+            average = course_average_for(student_id, course_id)
+            if average is None:
+                total_average += average
+                students_with_marks += 1
+
+        if students_with_marks == 0:
+            continue
+
+        course_average = total_average / students_with_marks
+
+        if best_average is None or course_average > best_average:
+            best_average = course_average
+            best_id = course_id
+
+    return best_id
 
 
 def academy_report():
